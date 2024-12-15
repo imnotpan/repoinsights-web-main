@@ -275,7 +275,7 @@
         ></div>
     </div>
 
-    <Tabs v-if="dashboards.length > 0" :dashboards="dashboards" />
+    <Tabs :dashboards="dashboards" />
 </template>
 
 <script setup>
@@ -305,6 +305,7 @@ function timeAgo(date) {
 let store = useExploreStore();
 const project = ref(null);
 const dashboards = ref([]);
+
 const summary = ref({
     loading: true,
     data: [],
@@ -354,11 +355,20 @@ watchEffect(() => {
 });
 
 const getDashboard = async () => {
-    const { data } = await axiosClient.post(
+    const url = window.location.href;
+    const match = url.match(/\/explore\/(\d+)/);
+
+    if (match && match[1]) {
+        dashboards.value = parseInt(match[1], 10);
+    } else {
+        console.error("No se encontró un ID de proyecto en la URL");
+    }
+
+    /* const { data } = await axiosClient.post(
         "/api/metabase/public/dashboards/single/",
         { params: { id: props.id } }
     );
-    dashboards.value = data.dashboards;
+    dashboards.value = data.dashboards; */
 };
 
 const getSummary = async () => {
@@ -403,6 +413,7 @@ onMounted(async () => {
         console.log(error);
     }
     await getDashboard();
+    console.log("aqui: ", dashboards.value);
     await getSummary();
     await getTopContributors(props.id);
     await getHeatmap(props.id);
