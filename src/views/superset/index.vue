@@ -11,13 +11,6 @@
                     >Apache Superset</span
                 >
             </div>
-            <nav>
-                <button
-                    class="text-blue-600 hover:text-blue-800 transition-colors"
-                >
-                    Ayuda
-                </button>
-            </nav>
         </header>
 
         <!-- Main Content -->
@@ -100,12 +93,6 @@
                                     metabase.pass
                                 }}</span>
                             </div>
-                            <button
-                                @click="sendInvitation"
-                                class="text-sm mt-1 text-blue-600 underline font-semibold hover:text-blue-800 transition-colors"
-                            >
-                                Reenviar correo
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -155,17 +142,7 @@ const copied = ref(false);
 
 const metabase = {
     name: userStore.user.email,
-    pass: "Te hemos enviado un correo para la creación de tu contraseña",
-};
-
-const sendInvitation = () => {
-    try {
-        userStore.sendInvitation();
-        toast.success("Correo enviado correctamente");
-    } catch (error) {
-        toast.error("Error al enviar el correo");
-        console.log(error);
-    }
+    pass: "Si no la has creado, hazlo ingresando en Realizar Tutorial",
 };
 
 const copyToClipboard = (text) => {

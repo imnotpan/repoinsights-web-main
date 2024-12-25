@@ -100,10 +100,10 @@ const loadDashboard = async () => {
     try {
         // Login to Superset and get access token
         const login_body = {
-            password: "admin",
+            password: import.meta.env.VITE_SUPERSET_PASSWORD,
             provider: "db",
             refresh: true,
-            username: "admin",
+            username: import.meta.env.VITE_SUPERSET_USERNAME,
         };
         const login_headers = {
             headers: { "Content-Type": "application/json" },

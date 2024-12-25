@@ -19,7 +19,7 @@
                 <h2 class="text-xl font-semibold">Paso 1: Crear Usuario</h2>
                 <p class="text-gray-700 mt-2">
                     Bienvenido al tutorial. Para comenzar, por favor crea tu
-                    usuario.
+                    usuario y completa todos los campos en blanco.
                 </p>
                 <form @submit.prevent="createUser" class="mt-4 space-y-4">
                     <div class="space-y-2">
@@ -34,7 +34,10 @@
                         />
                     </div>
                     <div class="space-y-2">
-                        <label class="block font-semibold">Email</label>
+                        <label class="block font-semibold"
+                            >Email (recomiendo utilizar el mismo de tu cuenta
+                            actual)</label
+                        >
                         <input
                             v-model="formData.email"
                             type="email"
@@ -60,15 +63,26 @@
                             required
                         />
                     </div>
-                    <div class="space-y-2">
+
+                    <div class="space-y-2 relative">
                         <label class="block font-semibold">Contraseña</label>
                         <input
                             v-model="formData.password"
-                            type="password"
+                            :type="showPassword ? 'text' : 'password'"
                             class="border rounded w-full p-2"
                             required
                         />
+                        <button
+                            id="buttonShow"
+                            type="button"
+                            @click="togglePasswordVisibility"
+                            class="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                        >
+                            <span v-if="showPassword"><EyeOff /></span>
+                            <span v-else><Eye /></span>
+                        </button>
                     </div>
+
                     <button
                         :disabled="!isFormComplete"
                         type="submit"
@@ -158,6 +172,7 @@
 </template>
 
 <script setup>
+import { Eye, EyeOff } from "lucide-vue-next";
 import { computed, ref } from "vue";
 import axios from "axios";
 import Stepper from "@/components/Stepper/Stepper.vue";
@@ -182,6 +197,8 @@ const formData = ref({
 const supersetUrl = "http://localhost:8088";
 const supersetApiUrl = `${supersetUrl}/api/v1/security`;
 let accessToken = "";
+
+const showPassword = ref(false);
 
 const isFormComplete = computed(() => {
     return (
@@ -249,10 +266,8 @@ const nextStep = () => {
     currentStep.value++;
 };
 
-const quitTutorial = () => {
-    //aquí debería abrir una modal con headlessui que diga ¿estás seguro que quieres salir?
-    //si responde que sí se redirecciona al usuario a /app/home
-    //si responde que no se cierra la modal
+const togglePasswordVisibility = () => {
+    showPassword.value = !showPassword.value;
 };
 
 // Modal state
@@ -273,5 +288,13 @@ const confirmQuit = () => {
 iframe {
     width: 100%;
     height: 100%;
+}
+
+#buttonShow {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    top: 25%;
 }
 </style>

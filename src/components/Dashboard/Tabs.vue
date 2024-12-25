@@ -126,10 +126,10 @@ async function changeDashboard(index) {
 // Función para obtener el token y renderizar el dashboard
 async function getToken(idDashboard, dashboardId, idProyecto) {
     const login_body = {
-        password: "admin",
+        password: import.meta.env.VITE_SUPERSET_PASSWORD,
         provider: "db",
         refresh: true,
-        username: "admin",
+        username: import.meta.env.VITE_SUPERSET_USERNAME,
     };
     const login_headers = {
         headers: {
