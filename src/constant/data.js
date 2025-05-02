@@ -38,4 +38,9 @@ export const menuItems = [
         icon: "heroicons-outline:sparkles",
         link: "contribuir",
     },
+    {
+        title: "Asistente de consultas",
+        icon: "heroicons-outline:chat-bubble-bottom-center-text",
+        link: "chat",
+    },
 ];

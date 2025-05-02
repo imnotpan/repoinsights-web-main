@@ -9,3 +9,4 @@ COPY . .
 
 # Comando para iniciar la aplicación
 CMD ["npm", "run", "serve"]
+    

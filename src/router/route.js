@@ -76,6 +76,11 @@ const routes = [
                 },
             },
             {
+                path: "chat",
+                name: "chat",
+                component: () => import("@/views/chat/index.vue"),
+            },
+            {
                 path: "contribuir",
                 name: "contribuir",
                 component: () => import("@/views/contribute/index.vue"),

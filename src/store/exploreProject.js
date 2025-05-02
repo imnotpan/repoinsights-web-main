@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import axiosClient from "@/plugins/axios";
+import { axiosNLP } from "@/plugins/axios";
 
 export const useExploreStore = defineStore({
     id: 'explore',
@@ -33,7 +33,7 @@ export const useExploreStore = defineStore({
                     return originalProject;
                 }
             }
-            const { data } = await axiosClient.get(`/api/repoinsights/explore/${id}/`)
+            const { data } = await axiosNLP.get(`/api/repoinsights/explore/${id}/`)
             return data;
         },
 

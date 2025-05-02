@@ -4,34 +4,42 @@ import { useUserStore } from '@/store/user';
 
 const axiosClient = axios.create({
   // if VITE_DEV_SERVER_URL is not defined, it will use the default value
-  baseURL: import.meta.env.VITE_DEV ?  'http://localhost:8000' : 'https://backend.repoinsights.app'
+  baseURL: import.meta.env.VITE_DEV ?  'http://146.83.216.157:8000' : 'https://backend.repoinsights.app'
 });
 
-axiosClient.interceptors.request.use((config) => {
-  const userStore = useUserStore();
-  if (userStore.token) {
-    config.headers.Authorization = `Bearer ${userStore.token}`;
-  }
-  return config;
+const axiosNLP = axios.create({
+  // if VITE_DEV_SERVER_URL is not defined, it will use the default value
+  baseURL: import.meta.env.VITE_DEV ?  'http://146.83.216.157:8080' : 'https://backend.repoinsights.app'
 });
 
-axiosClient.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    console.log(error);
-    const userStore = useUserStore();
-    if (error.response.status === 401) {
-      userStore.setToken(null);
-      router.push({ name: 'Login' });
+// Configura el interceptor para amobos clientes de Axios
+function setupAuthInterceptors(client) {
+  client.interceptors.request.use(config => {
+    const userStore = useUserStore()
+    if (userStore.token) {
+      config.headers.Authorization = `Bearer ${userStore.token}`
     }
-    else if (error.response.status === 403) {
-      userStore.setToken(null);
-      router.push({ name: 'Login' });
-    }
-    throw error;
-  },
-);
+    return config
+  })
 
-export default axiosClient;
+  client.interceptors.response.use(
+    response => response,
+    error => {
+      const status = error.response?.status
+      if (status === 401 || status === 403) {
+        const userStore = useUserStore()
+        userStore.setToken(null)
+        router.push({ name: 'Login' })
+      }
+      return Promise.reject(error)
+    }
+  )
+}
+
+setupAuthInterceptors(axiosClient)
+setupAuthInterceptors(axiosNLP)
+
+export { axiosNLP }
+export default axiosClient
+
+
