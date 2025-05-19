@@ -1,11 +1,6 @@
 <template>
-    <div class="relative group">
-      <!-- Tooltip posicionado debajo del botón -->
-      <span
-        class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-gray-700 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap"
-      >
-        respuesta adecuada
-      </span>
+  <div>
+    <Tooltip content="Respuesta adecuada">
       <button
         @click="toggleLike"
         :disabled="liked || in_rag"
@@ -14,6 +9,7 @@
           'text-white cursor-not-allowed': liked || in_rag,
           '': !(liked || in_rag)
         }"
+        aria-label="Marcar como respuesta adecuada"
       >
         <template v-if="liked || in_rag">
           <!-- Ícono relleno -->
@@ -28,36 +24,36 @@
           </svg>
         </template>
       </button>
-    </div>
-  </template>
-  
-  <script setup>
-  import { ref } from 'vue'
-  import { useMessageLikes } from '@/composables/useLike'
-  
-  const props = defineProps({
-    messageId: {
-      type: Number,
-      required: true
-    },
-    in_rag: {
-      type: Boolean,
-      default: false
-    }
-  })
-  
-  const liked = ref(false)
-  const { sendLike } = useMessageLikes()
-  
-  const toggleLike = async () => {
-    // Si ya se dio like o "in_rag" es true, no se procesa el click.
-    if (liked.value || props.in_rag) return
-    try {
-      await sendLike(props.messageId)
-      liked.value = true
-    } catch (error) {
-      console.error('Error en toggleLike:', error)
-    }
+    </Tooltip>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { useMessageLikes } from '@/composables/useLike'
+import Tooltip from '@/components/ChatModule/components/Tooltip.vue'
+
+const props = defineProps({
+  messageId: {
+    type: Number,
+    required: true
+  },
+  in_rag: {
+    type: Boolean,
+    default: false
   }
-  </script>
-  
+})
+
+const liked = ref(false)
+const { sendLike } = useMessageLikes()
+
+const toggleLike = async () => {
+  if (liked.value || props.in_rag) return
+  try {
+    await sendLike(props.messageId)
+    liked.value = true
+  } catch (error) {
+    console.error('Error en toggleLike:', error)
+  }
+}
+</script>

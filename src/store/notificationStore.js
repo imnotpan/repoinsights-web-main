@@ -1,22 +1,29 @@
-// src/stores/notificationStore.js
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
+import { useToast } from 'vue-toastification'
 
+// Store para disparar toasts basados en status_id de la notificación
 export const useNotificationStore = defineStore('notification', {
-  state: () => ({
-    notifications: []
-  }),
   actions: {
-    addNotification(notification) {
-      // Asignamos un id único basado en el tiempo
-      notification.id = Date.now();
-      this.notifications.push(notification);
-      // Remover la notificación automáticamente después de 5 segundos
-      setTimeout(() => {
-        this.removeNotification(notification.id);
-      }, 5000);
-    },
-    removeNotification(id) {
-      this.notifications = this.notifications.filter(n => n.id !== id);
+    addNotification({ message, status_id = 0 }) {
+      const toast = useToast()
+
+      let type
+      switch (status_id) {
+        case 1:
+          type = 'success'
+          break
+        case 2:
+          type = 'error'
+          break
+        case 3:
+          type = 'warning'
+          break
+        default:
+          type = 'default'
+      }
+
+      // Dispara el toast
+      toast(message, { type })
     }
   }
-});
+})

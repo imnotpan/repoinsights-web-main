@@ -1,4 +1,3 @@
-<!-- src/components/ChatModule/Thread/Bar.vue -->
 <template>
     <div class="p-2 w-[70%] relative overflow-visible flex">
       <LikeButton :messageId="thread.id" :in_rag="thread.in_rag" />

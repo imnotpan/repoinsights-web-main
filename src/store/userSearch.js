@@ -2,15 +2,9 @@
 import { defineStore } from 'pinia';
 import {axiosNLP} from '@/plugins/axios.js';
 
-/**
- * @typedef {Object} MentionUser
- * @property {number} id
- * @property {string} login
- */
 
 export const useUserStore = defineStore('users', {
   state: () => ({
-    /** @type {MentionUser[]} */
     participants: [],
     offset: 0,
     pageSize: 50,
@@ -30,6 +24,8 @@ export const useUserStore = defineStore('users', {
       await this._loadPage(project_id);
     },
     async _loadPage(project_id) {
+        console.trace('➡️ Llamada a _loadPage');
+
       const params = {
         project_id,
         limit: this.pageSize,
@@ -38,6 +34,7 @@ export const useUserStore = defineStore('users', {
       };
       try {
         const { data } = await axiosNLP.get('/core/users/search', { params });
+        console.log("VALOR DE SEARCH " + data)
         const list = data; // array de {id,login}
         this.hasMore = list.length === this.pageSize;
         this.participants = this.participants.concat(list);

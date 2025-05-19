@@ -20,7 +20,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
 import { Chart, registerables } from 'chart.js'
-import { useChart } from '@/composables/Message/useChart'
+import { useChart } from '@/composables/useChart'
 
 Chart.register(...registerables)
 

@@ -12,8 +12,8 @@ export const useProjectStore = defineStore('projects', {
   }),
   actions: {
     async searchProjects(query, limit = 10) {
+      console.log("BUSQUEDAA")
       this.searchResults = [];
-      if (!query?.trim()) return;
 
       this.isLoading = true;
       this.error = null;
@@ -25,6 +25,7 @@ export const useProjectStore = defineStore('projects', {
             limit,
           },
         });
+        console.log("HOLAA: " + data)
         this.searchResults = Array.isArray(data) ? data : data.projects || [];
       } catch (err) {
         console.error('Error al buscar proyectos:', err);

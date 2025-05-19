@@ -55,6 +55,25 @@ app.directive('resize', resizeDirective)
 
 app.mount("#app");
 
+const isProdSim = import.meta.env.VITE_SIMULATE_PROD === 'true';
+
+if (isProdSim) {
+    console.log('[🧪 Simulación PROD] Activada');
+
+    window.addEventListener('error', (e) => {
+        console.error('🚨 Error global (sim prod):', e);
+    });
+
+    window.addEventListener('unhandledrejection', (e) => {
+        console.error('🚨 Promesa sin captura (sim prod):', e.reason);
+    });
+
+    app.config.errorHandler = (err, instance, info) => {
+        console.error('🔥 Vue error handler (sim prod):', err, info);
+    };
+}
+
+
 import { useThemeSettingsStore } from "@/store/themeSettings";
 import { useUserStore } from "@/store/user";
 const themeSettingsStore = useThemeSettingsStore()

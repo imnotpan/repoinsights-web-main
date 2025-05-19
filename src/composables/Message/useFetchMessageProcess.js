@@ -17,7 +17,7 @@ export function useFetchMessageProcess() {
 
     try {
       // Petición con axios al endpoint correspondiente
-      const { data } = await axiosNLP.get(`/core/chat/message/${messageId}/process`);
+      const { data } = await axiosNLP.get(`/core/message/${messageId}/process`);
 
       // Esperamos que la respuesta tenga el campo `process`
       if (data && data.process !== undefined) {

@@ -26,7 +26,7 @@
 <script setup>
 import Card from "@/components/Card";
 import { ref } from "vue";
-import axiosClient from '@/plugins/axios';
+import {axiosClient} from '@/plugins/axios';
 import { useToast } from 'vue-toastification';
 
 

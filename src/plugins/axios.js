@@ -39,7 +39,6 @@ function setupAuthInterceptors(client) {
 setupAuthInterceptors(axiosClient)
 setupAuthInterceptors(axiosNLP)
 
-export { axiosNLP }
-export default axiosClient
+export { axiosNLP, axiosClient }
 
 

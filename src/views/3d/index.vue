@@ -88,7 +88,7 @@
 </template>
 
 <script setup>
-import axiosClient from "@/plugins/axios";
+import {axiosClient} from "@/plugins/axios";
 import Plotly from "plotly.js-dist";
 import { onMounted, ref, watch } from "vue";
 import { useToast } from "vue-toastification";

@@ -11,10 +11,9 @@ export const useProcessStore = defineStore('process', {
       if (this.processMap[messageId]) return; 
 
       try {
-        const response = await axiosNLP.get(`/core/chat/message/${messageId}/process`, {
+        const response = await axiosNLP.get(`/core/message/${messageId}/process`, {
           params: { message_id: messageId },
         });
-        console.log(response.data)
         this.processMap[messageId] = response.data.process;
       } catch (error) {
         console.error('Error al obtener procesos:', error);

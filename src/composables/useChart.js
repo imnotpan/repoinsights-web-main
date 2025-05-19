@@ -2,10 +2,7 @@ import { ref } from 'vue'
 import {axiosNLP} from '@/plugins/axios.js'
 import { useChartStore } from '@/store/chartStore.js'
 
-/**
- * Composable para cargar datos de gráfico, ya sea desde SSE (almacenados en chartStore)
- * o mediante petición al backend.
- */
+/* Composable para cargar datos de gráfico, ya sea desde SSE (almacenados en chartStore) o mediante petición al backend. */
 export function useChart() {
   const loading = ref(false)
   const error = ref(null)
@@ -24,10 +21,8 @@ export function useChart() {
 
     // 2) Si no hay cache, solicitar al backend
     try {
-      const response = await axiosNLP.post(
-        `/core/metrics/${messageId}/query`
-      )
-
+      const response = await axiosNLP.get( `/core/metrics/${messageId}/query` )
+      console.log(response.data)
       if (response.data && Array.isArray(response.data.labels)) {
         // Guardar en store para futuras consultas
         chartStore.setChartData(messageId, response.data)

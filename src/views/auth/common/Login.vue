@@ -39,7 +39,7 @@ import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 import { onMounted, watch } from 'vue';
 import { ref } from 'vue';
-import axiosClient from '@/plugins/axios';
+import {axiosClient} from '@/plugins/axios';
 
 import Textinput from "@/components/Textinput";
 import Button from "@/components/Button";

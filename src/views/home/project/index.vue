@@ -109,7 +109,7 @@ import { useUserStore } from "@/store/user";
 import SimpleLoader from "@/components/Loader/simpleLoader.vue"
 import { useToast } from 'vue-toastification';
 import Card from "@/components/Card"
-import axiosClient from "@/plugins/axios";
+import {axiosClient} from "@/plugins/axios";
 import Modal from "@/components/Modal/index.vue";
 import Badge from "@/components/Badge";
 import Skeleton from "@/components/Skeleton"

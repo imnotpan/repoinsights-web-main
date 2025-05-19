@@ -281,7 +281,7 @@
 <script setup>
 import { onMounted, ref, computed, watchEffect } from "vue";
 import { useExploreStore } from "@/store/exploreProject";
-import axiosClient from "@/plugins/axios";
+import {axiosClient} from "@/plugins/axios";
 
 import Tabs from "@/components/Dashboard/Tabs.vue";
 import Card from "@/components/Card/index.vue";

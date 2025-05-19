@@ -1,4 +1,3 @@
-<!-- src/components/Notifications.vue -->
 <template>
     <div class="fixed bottom-4 right-4 space-y-2 z-50 w-full max-w-sm">
       <div

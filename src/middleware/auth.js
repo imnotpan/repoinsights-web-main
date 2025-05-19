@@ -1,5 +1,5 @@
 import { useUserStore } from "@/store/user"; // Importa useUserStore
-import axiosClient from "@/plugins/axios";
+import {axiosClient} from "@/plugins/axios";
 
 export default async function auth({ next }) {
     const userStore = useUserStore(); // Crea una instancia de userStore

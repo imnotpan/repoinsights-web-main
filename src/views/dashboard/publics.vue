@@ -41,7 +41,7 @@
 
 <script setup>
 import axios from "axios";
-import axiosClient from "@/plugins/axios";
+import {axiosClient} from "@/plugins/axios";
 import { embedDashboard } from "@superset-ui/embedded-sdk";
 import { onMounted, ref, watch } from "vue";
 import { useToast } from "vue-toastification";
